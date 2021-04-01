@@ -21,7 +21,6 @@ services:
 
     Landingi\ToggleBundle\FeatureFlagsSource\DbSource:
         public: false
-        arguments: ['@?']
 
     Landingi\ToggleBundle\FeatureFlagsSource\RedisSource:
         public: false
