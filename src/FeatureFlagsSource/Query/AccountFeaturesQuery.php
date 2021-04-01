@@ -32,6 +32,6 @@ final class AccountFeaturesQuery
             throw new RuntimeException('Query execution failure');
         }
 
-        return array_map(static fn(array $item) => $item['name'], $result->fetchAllAssociative());
+        return array_map(static fn (array $item) => $item['name'], $result->fetchAllAssociative());
     }
 }

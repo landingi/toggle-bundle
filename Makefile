@@ -1,6 +1,6 @@
 ci:
 	vendor/bin/phpunit --color=always --testsuite unit-tests
-	vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=256M
+	vendor/bin/phpstan analyse -c vendor/landingi/php-coding-standards/phpstan.neon --memory-limit=256M
 	vendor/bin/ecs check --config vendor/landingi/php-coding-standards/ecs.php
 fix:
 	vendor/bin/ecs check --fix --config vendor/landingi/php-coding-standards/ecs.php
@@ -16,7 +16,7 @@ coverage:
 coverage-html:
 	vendor/bin/phpunit --coverage-html=build/coverage/
 analyse:
-	vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=256M
+	vendor/bin/phpstan analyse -c vendor/landingi/php-coding-standards/phpstan.neon --memory-limit=256M
 	vendor/bin/ecs check --config vendor/landingi/php-coding-standards/ecs.php
 code-quality:
 	vendor/bin/phpunit --coverage-clover=build/coverage.xml

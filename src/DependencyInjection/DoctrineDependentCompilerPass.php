@@ -18,7 +18,7 @@ final class DoctrineDependentCompilerPass implements CompilerPassInterface
             throw new InvalidArgumentException('Dbal connection name must be provided in te configuration of toggle-bundle');
         }
 
-        $availableConnectionNames = $container->getParameter('doctrine.connections');
+        $availableConnectionNames = (array) $container->getParameter('doctrine.connections');
         $connectionName = sprintf('doctrine.dbal.%s_connection', $config['dbal']['connection_name']);
 
         if (false === in_array($connectionName, array_values($availableConnectionNames), true)) {
