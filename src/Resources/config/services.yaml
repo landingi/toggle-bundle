@@ -1,0 +1,43 @@
+parameters:
+    landingi_toggle_redis_connection:
+        schema: 'tcp'
+        host: '127.0.0.1'
+        port: 6379
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    landingi_toggle.redis.client:
+        class: Predis\Client
+        arguments: [ '%landingi_toggle_redis_connection%' ]
+
+    Landingi\ToggleBundle\FeatureFlagsSource\RedisKeyFactory: ~
+
+    Landingi\ToggleBundle\FeatureFlagsSource\Cache\RedisCache:
+        public: false
+        arguments: ['@landingi_toggle.redis.client', '@Landingi\ToggleBundle\FeatureFlagsSource\RedisKeyFactory', '300']
+
+    Landingi\ToggleBundle\FeatureFlagsSource\DbSource:
+        public: false
+        arguments: ['@?']
+
+    Landingi\ToggleBundle\FeatureFlagsSource\RedisSource:
+        public: false
+        arguments: ['@landingi_toggle.redis.client', '@Landingi\ToggleBundle\FeatureFlagsSource\RedisKeyFactory']
+        calls:
+            - [addNextSource, ['@Landingi\ToggleBundle\FeatureFlagsSource\DbSource']]
+
+    Landingi\ToggleBundle\FeatureFlagsSource\CachingSource:
+        class: Landingi\ToggleBundle\FeatureFlagsSource\CachingSource
+        public: false
+        arguments: ['@Landingi\ToggleBundle\FeatureFlagsSource\RedisSource', '@Landingi\ToggleBundle\FeatureFlagsSource\Cache\RedisCache']
+
+    Landingi\ToggleBundle\FeatureFlagsCollectionFactory:
+        public: false
+        arguments: ['@Landingi\ToggleBundle\FeatureFlagsSource\DbSource']
+
+    Landingi\ToggleBundle\AccessVoter:
+        public: true
+        arguments: ['@Landingi\ToggleBundle\FeatureFlagsCollectionFactory']

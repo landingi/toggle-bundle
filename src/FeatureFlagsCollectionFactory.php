@@ -10,7 +10,7 @@ final class FeatureFlagsCollectionFactory
 {
     private FeatureFlagsSource $featureFlagsSource;
 
-    public function __construct(/*This should be config based*/FeatureFlagsSource $featureFlagsSource)
+    public function __construct(FeatureFlagsSource $featureFlagsSource)
     {
         $this->featureFlagsSource = $featureFlagsSource;
     }
