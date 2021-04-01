@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/landingi/toggle-bundle.svg?branch=master)](https://travis-ci.com/landingi/toggle-bundle)
+
 # Toggle bundle
 
 # Feature Flag
