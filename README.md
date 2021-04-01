@@ -32,7 +32,7 @@ landingi_toggle:
             schema: 'tcp'
             host: '%env(REDIS_HOST)%'
             port: 6379
-        ttl: 60 # Time to leave for cached feature flags entries for a selected account_uuid
+        ttl: 60 # Time to live for cached feature flags entries for a selected account_uuid
 ```
 
 ## Usage
