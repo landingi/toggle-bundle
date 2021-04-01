@@ -1,0 +1,36 @@
+{
+  "name": "landingi/toggle-bundle",
+  "description": "Bundle with core functionality that gives a hand to check features for a given account",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Miłosz Lenczewski",
+      "email": "milosz.lenczewski@landingi.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Landingi\\ToggleBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Landingi\\Tests\\ToggleBundle\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.4",
+    "symfony/framework-bundle": "^5.2",
+    "symfony/uid": "^5.2",
+    "predis/predis": "^1.1",
+    "doctrine/dbal": "^2.12"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "landingi/php-coding-standards": "^1.0",
+    "landingi/crap-metric-analyzer": "^1.0",
+    "phpunit/phpunit": "^9.5"
+  }
+}
