@@ -22,8 +22,8 @@
   },
   "require": {
     "php": ">=7.4",
-    "symfony/framework-bundle": "^5.2",
-    "symfony/uid": "^5.2",
+    "symfony/framework-bundle": "^5.0",
+    "symfony/uid": "^5.0",
     "predis/predis": "^1.1",
     "doctrine/dbal": "^2.12"
   },
