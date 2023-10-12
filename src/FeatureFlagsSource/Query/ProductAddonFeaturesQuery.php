@@ -7,7 +7,7 @@ namespace Landingi\ToggleBundle\FeatureFlagsSource\Query;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Uid\Uuid;
 
-final class AccountFeaturesQuery
+final class ProductAddonFeaturesQuery
 {
     private Connection $connection;
 
@@ -19,11 +19,10 @@ final class AccountFeaturesQuery
     public function fetchByAccountUuid(Uuid $accountUuid): array
     {
         $sql = <<<SQL
-        SELECT DISTINCT(paf.feature_flag_name)
-        FROM product_addons_features paf
-        JOIN product_addons_accounts paa USING (product_addons_id)
-        JOIN accounts a ON IFNULL(a.agency_id, a.id) = paa.account_id
-        WHERE 
+        SELECT f.name
+        FROM accounts_features f
+        JOIN accounts a ON IFNULL(a.agency_id, a.id) = f.account_id
+        WHERE
             a.uuid = :accountUuid
         SQL;
 

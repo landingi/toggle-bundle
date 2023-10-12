@@ -4,9 +4,6 @@ declare(strict_types=1);
 namespace Landingi\ToggleBundle\FeatureFlagsSource\Query;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Result;
-use Doctrine\DBAL\Types\Types;
-use RuntimeException;
 use Symfony\Component\Uid\Uuid;
 
 final class PackageFeaturesQuery
@@ -20,19 +17,15 @@ final class PackageFeaturesQuery
 
     public function fetchByAccountUuid(Uuid $accountUuid): array
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT(pf.name)');
-        $query->from('packages_features', 'pf');
-        $query->join('pf', 'prefix_profile', 'pp', 'pf.package_id = pp.package_id');
-        $query->join('pp', 'accounts', 'a', 'a.profile_id = pp.id');
-        $query->where('a.uuid = :account_uuid');
-        $query->setParameter('account_uuid', (string) $accountUuid, Types::STRING);
-        $result = $query->execute();
+        $sql = <<<SQL
+        SELECT pf.name
+        FROM package_features pf
+        JOIN prefix_profile pp ON pf.package_id = pp.package_id
+        JOIN accounts a ON a.profile_id = pp.id
+        WHERE
+            a.uuid = :accountUuid
+        SQL;
 
-        if (!$result instanceof Result) {
-            throw new RuntimeException('Query execution failure');
-        }
-
-        return array_map(static fn (array $item) => $item['name'], $result->fetchAllAssociative());
+        return $this->connection->fetchFirstColumn($sql, ['accountUuid' => (string) $accountUuid]);
     }
 }

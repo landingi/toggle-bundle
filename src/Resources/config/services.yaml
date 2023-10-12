@@ -19,6 +19,15 @@ services:
         public: false
         arguments: ['@landingi_toggle.redis.client', '@Landingi\ToggleBundle\FeatureFlagsSource\RedisKeyFactory', '300']
 
+    Landingi\ToggleBundle\FeatureFlagsSource\Query\AccountFeaturesQuery:
+        public: false
+
+    Landingi\ToggleBundle\FeatureFlagsSource\Query\PackageFeaturesQuery:
+        public: false
+
+    Landingi\ToggleBundle\FeatureFlagsSource\Query\ProductAddonFeaturesQuery:
+        public: false
+
     Landingi\ToggleBundle\FeatureFlagsSource\DbSource:
         public: false
 
